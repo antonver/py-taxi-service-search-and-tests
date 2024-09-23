@@ -13,9 +13,7 @@ class ManufacturerTests(TestCase):
 
     def setUp(self):
         self.admin_user = get_user_model().objects.create_superuser(
-            username="Admin",
-            password="hard",
-            email="anton@gmail.com"
+            username="Admin", password="hard", email="anton@gmail.com"
         )
         self.client.force_login(self.admin_user)
 
@@ -35,14 +33,18 @@ class ManufacturerTests(TestCase):
         self.assertEqual(len(response.context["manufacturer_list"]), 5)
 
     def test_search_form_with_one_result(self):
-        response = self.client.get(reverse("taxi:manufacturer-list"), {"name": "Mercedes_0"})
+        response = self.client.get(
+            reverse("taxi:manufacturer-list"), {"name": "Mercedes_0"}
+        )
         self.assertEqual(response.status_code, 200)
         self.assertIn("manufacturer_list", response.context)
         self.assertEqual(len(response.context["manufacturer_list"]), 1)
         self.assertEqual(response.context["manufacturer_list"][0].name, "Car_0")
 
     def tes_search_form_with_zero_result(self):
-        response = self.client.get(reverse("taxi:manufacturer-list"), {"name": "Pampam"})
+        response = self.client.get(
+            reverse("taxi:manufacturer-list"), {"name": "Pampam"}
+        )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response.context, "manufacturer_list")
         self.assertEqual(len(response.context["manufacturer_list"]), 0)
@@ -54,7 +56,9 @@ class ManufacturerTests(TestCase):
         self.assertEqual(len(response.context["manufacturer_list"]), 5)
 
     def test_search_form_all_results_second_page(self):
-        response = self.client.get(reverse("taxi:manufacturer-list"), {"name": "", "page": 2})
+        response = self.client.get(
+            reverse("taxi:manufacturer-list"), {"name": "", "page": 2}
+        )
         self.assertEqual(response.status_code, 200)
         self.assertIn("manufacturer_list", response.context)
         self.assertEqual(len(response.context["manufacturer_list"]), 5)

@@ -59,19 +59,22 @@ class PublicManufacturerLoginTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_manufacturer_update(self):
-        response = self.client.get(reverse("taxi:manufacturer-update", kwargs={"pk": 1}))
+        response = self.client.get(
+            reverse("taxi:manufacturer-update", kwargs={"pk": 1})
+        )
         self.assertEqual(response.status_code, 302)
 
     def test_manufacturer_delete(self):
-        response = self.client.get(reverse("taxi:manufacturer-delete", kwargs={"pk": 1}))
+        response = self.client.get(
+            reverse("taxi:manufacturer-delete", kwargs={"pk": 1})
+        )
         self.assertEqual(response.status_code, 302)
 
 
 class PrivateCarLoginTest(TestCase):
     def setUp(self) -> None:
         self.admin_user = get_user_model().objects.create_superuser(
-            username="Admin",
-            password="hard"
+            username="Admin", password="hard"
         )
         self.client.force_login(self.admin_user)
 
@@ -105,8 +108,7 @@ class PrivateManufacturerLoginTest(TestCase):
 
     def setUp(self) -> None:
         self.admin_user = get_user_model().objects.create_superuser(
-            username="Admin",
-            password="hard"
+            username="Admin", password="hard"
         )
         self.client.force_login(self.admin_user)
 
@@ -123,27 +125,30 @@ class PrivateManufacturerLoginTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_manufacturer_update(self):
-        response = self.client.get(reverse("taxi:manufacturer-update", kwargs={"pk": 1}))
+        response = self.client.get(
+            reverse("taxi:manufacturer-update", kwargs={"pk": 1})
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_manufacturer_delete(self):
-        response = self.client.post(reverse("taxi:manufacturer-delete", kwargs={"pk": 1}))
+        response = self.client.post(
+            reverse("taxi:manufacturer-delete", kwargs={"pk": 1})
+        )
         self.assertEqual(response.status_code, 302)
 
 
 class PrivateDriverLoginTest(TestCase):
     def setUp(self) -> None:
         self.admin_user = get_user_model().objects.create_superuser(
-            username="Admin",
-            password="hard"
+            username="Admin", password="hard"
         )
         self.client.force_login(self.admin_user)
 
     @classmethod
     def setUpTestData(cls):
-        cls.user = get_user_model().objects.create(username="Admin1",
-                                                   password="hard1",
-                                                   license_number="1111")
+        cls.user = get_user_model().objects.create(
+            username="Admin1", password="hard1", license_number="1111"
+        )
 
     def test_driver_list(self):
         response = self.client.get(reverse("taxi:driver-list"))
@@ -162,5 +167,7 @@ class PrivateDriverLoginTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_driver_delete(self):
-        response = self.client.post(reverse("taxi:driver-delete", kwargs={"pk": self.user.pk}))
+        response = self.client.post(
+            reverse("taxi:driver-delete", kwargs={"pk": self.user.pk})
+        )
         self.assertEqual(response.status_code, 302)

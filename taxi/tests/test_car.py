@@ -15,9 +15,7 @@ class CarTests(TestCase):
 
     def setUp(self):
         self.admin_user = get_user_model().objects.create_superuser(
-            username="Admin",
-            password="hard",
-            email="anton@gmail.com"
+            username="Admin", password="hard", email="anton@gmail.com"
         )
         self.client.force_login(self.admin_user)
 
@@ -61,7 +59,3 @@ class CarTests(TestCase):
         self.assertIn("car_list", response.context)
         self.assertEqual(len(response.context["car_list"]), 5)
         self.assertTrue("Car_5" == response.context["car_list"][0].model)
-
-
-
-
