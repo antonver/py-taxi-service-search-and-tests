@@ -42,7 +42,7 @@ class ManufacturerTests(TestCase):
         self.assertIn("manufacturer_list", response.context)
         self.assertEqual(len(response.context["manufacturer_list"]), 1)
         (self.assertEqual
-         (response.context["manufacturer_list"][0].name, "Car_0"))
+         (response.context["manufacturer_list"][0].name, "Mercedes_0"))
 
     def tes_search_form_with_zero_result(self):
         response = self.client.get(
