@@ -96,7 +96,10 @@ class CarListView(LoginRequiredMixin, generic.ListView):
         queryset = self.model.objects.all()
         form = CarSearchForm(self.request.GET)
         if form.is_valid():
-            return queryset.filter(model__icontains=form.cleaned_data.get("model", ""))
+            return (queryset.
+                    filter
+                    (model__icontains=form.
+                     cleaned_data.get("model", "")))
         return queryset
 
 
