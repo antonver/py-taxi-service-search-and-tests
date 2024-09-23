@@ -10,7 +10,8 @@ class DriverTests(TestCase):
     def setUpTestData(cls):
         for i in range(10):
             Driver.objects.create(
-                username=f"driver_number_{i}", license_number=f"license_number_{i}"
+                username=f"driver_number_{i}",
+                license_number=f"license_number_{i}"
             )
 
     def setUp(self):
@@ -30,7 +31,8 @@ class DriverTests(TestCase):
         self.assertEqual(len(response.context["driver_list"]), 5)
 
     def test_pagination_second_page(self):
-        response = self.client.get(reverse("taxi:driver-list"), {"page": 2})
+        response = self.client.get(reverse("taxi:driver-list"),
+                                   {"page": 2})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context["driver_list"]), 5)
 
@@ -46,13 +48,15 @@ class DriverTests(TestCase):
         )
 
     def test_search_form_zero_results(self):
-        response = self.client.get(reverse("taxi:driver-list"), {"username": "nothing"})
+        response = self.client.get(reverse("taxi:driver-list"),
+                                   {"username": "nothing"})
         self.assertEqual(response.status_code, 200)
         self.assertTrue("driver_list" in response.context)
         self.assertEqual(len(response.context["driver_list"]), 0)
 
     def test_search_form_all_results(self):
-        response = self.client.get(reverse("taxi:driver-list"), {"username": ""})
+        response = self.client.get(reverse("taxi:driver-list"),
+                                   {"username": ""})
         self.assertEqual(response.status_code, 200)
         self.assertTrue("driver_list" in response.context)
         self.assertEqual(len(response.context["driver_list"]), 5)

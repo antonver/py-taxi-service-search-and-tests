@@ -34,7 +34,8 @@ def index(request):
         "num_visits": num_visits + 1,
     }
 
-    return render(request, "taxi/index.html", context=context)
+    return render(request, "taxi/index.html",
+                  context=context)
 
 
 class ManufacturerListView(LoginRequiredMixin, generic.ListView):
@@ -46,7 +47,8 @@ class ManufacturerListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         name = self.request.GET.get("name")
-        context["search_form"] = ManufacturerSearchForm(initial={"name": name})
+        context["search_form"] = (
+            ManufacturerSearchForm(initial={"name": name}))
         return context
 
     def get_queryset(self):
@@ -59,19 +61,22 @@ class ManufacturerListView(LoginRequiredMixin, generic.ListView):
         return self.queryset
 
 
-class ManufacturerCreateView(LoginRequiredMixin, generic.CreateView):
+class ManufacturerCreateView(LoginRequiredMixin,
+                             generic.CreateView):
     model = Manufacturer
     fields = "__all__"
     success_url = reverse_lazy("taxi:manufacturer-list")
 
 
-class ManufacturerUpdateView(LoginRequiredMixin, generic.UpdateView):
+class ManufacturerUpdateView(LoginRequiredMixin,
+                             generic.UpdateView):
     model = Manufacturer
     fields = "__all__"
     success_url = reverse_lazy("taxi:manufacturer-list")
 
 
-class ManufacturerDeleteView(LoginRequiredMixin, generic.DeleteView):
+class ManufacturerDeleteView(LoginRequiredMixin,
+                             generic.DeleteView):
     model = Manufacturer
     success_url = reverse_lazy("taxi:manufacturer-list")
 
@@ -123,7 +128,8 @@ class DriverListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         username = self.request.GET.get("username", "")
-        context["search_form"] = DriverSearchForm(initial={"username": username})
+        context["search_form"] = (
+            DriverSearchForm(initial={"username": username}))
         return context
 
     def get_queryset(self):

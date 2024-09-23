@@ -9,7 +9,8 @@ class ManufacturerTests(TestCase):
     @classmethod
     def setUpTestData(cls):
         for i in range(10):
-            Manufacturer.objects.create(name=f"Mercedes_{i}", country="Germany")
+            (Manufacturer.objects.
+             create(name=f"Mercedes_{i}", country="Germany"))
 
     def setUp(self):
         self.admin_user = get_user_model().objects.create_superuser(
@@ -28,7 +29,8 @@ class ManufacturerTests(TestCase):
         self.assertEqual(len(response.context["manufacturer_list"]), 5)
 
     def test_pagination_second_page(self):
-        response = self.client.get(reverse("taxi:manufacturer-list"), {"page": 2})
+        response = (self.client.
+                    get(reverse("taxi:manufacturer-list"), {"page": 2}))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context["manufacturer_list"]), 5)
 
@@ -39,7 +41,8 @@ class ManufacturerTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn("manufacturer_list", response.context)
         self.assertEqual(len(response.context["manufacturer_list"]), 1)
-        self.assertEqual(response.context["manufacturer_list"][0].name, "Car_0")
+        (self.assertEqual
+         (response.context["manufacturer_list"][0].name, "Car_0"))
 
     def tes_search_form_with_zero_result(self):
         response = self.client.get(
@@ -50,7 +53,8 @@ class ManufacturerTests(TestCase):
         self.assertEqual(len(response.context["manufacturer_list"]), 0)
 
     def test_search_form_all_results(self):
-        response = self.client.get(reverse("taxi:manufacturer-list"), {"name": ""})
+        response = (self.client.
+                    get(reverse("taxi:manufacturer-list"), {"name": ""}))
         self.assertEqual(response.status_code, 200)
         self.assertIn("manufacturer_list", response.context)
         self.assertEqual(len(response.context["manufacturer_list"]), 5)
@@ -62,4 +66,5 @@ class ManufacturerTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn("manufacturer_list", response.context)
         self.assertEqual(len(response.context["manufacturer_list"]), 5)
-        self.assertTrue("Mercedes_5" == response.context["manufacturer_list"][0].name)
+        (self.assertTrue
+         ("Mercedes_5" == response.context["manufacturer_list"][0].name))

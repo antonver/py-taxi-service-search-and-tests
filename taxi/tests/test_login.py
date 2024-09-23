@@ -11,7 +11,9 @@ class PublicCarLoginTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_car_detail(self):
-        response = self.client.get(reverse("taxi:car-detail", kwargs={"pk": 1}))
+        response = (self.client.get
+                    (reverse("taxi:car-detail",
+                             kwargs={"pk": 1})))
         self.assertEqual(response.status_code, 302)
 
     def test_car_create(self):
@@ -19,11 +21,15 @@ class PublicCarLoginTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_car_update(self):
-        response = self.client.get(reverse("taxi:car-update", kwargs={"pk": 1}))
+        response = (self.client.get
+                    (reverse("taxi:car-update",
+                             kwargs={"pk": 1})))
         self.assertEqual(response.status_code, 302)
 
     def test_car_delete(self):
-        response = self.client.get(reverse("taxi:car-delete", kwargs={"pk": 1}))
+        response = (self.client.get
+                    (reverse("taxi:car-delete",
+                             kwargs={"pk": 1})))
         self.assertEqual(response.status_code, 302)
 
 
@@ -33,7 +39,9 @@ class PublicDriverLoginTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_driver_detail(self):
-        response = self.client.get(reverse("taxi:driver-detail", kwargs={"pk": 1}))
+        response = (self.client.get
+                    (reverse("taxi:driver-detail",
+                             kwargs={"pk": 1})))
         self.assertEqual(response.status_code, 302)
 
     def test_driver_create(self):
@@ -41,11 +49,15 @@ class PublicDriverLoginTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_driver_update(self):
-        response = self.client.get(reverse("taxi:driver-update", kwargs={"pk": 1}))
+        response = (self.client.get
+                    (reverse("taxi:driver-update",
+                             kwargs={"pk": 1})))
         self.assertEqual(response.status_code, 302)
 
     def test_driver_delete(self):
-        response = self.client.get(reverse("taxi:driver-delete", kwargs={"pk": 1}))
+        response = (self.client.get
+                    (reverse("taxi:driver-delete",
+                             kwargs={"pk": 1})))
         self.assertEqual(response.status_code, 302)
 
 
@@ -60,13 +72,15 @@ class PublicManufacturerLoginTest(TestCase):
 
     def test_manufacturer_update(self):
         response = self.client.get(
-            reverse("taxi:manufacturer-update", kwargs={"pk": 1})
+            reverse("taxi:manufacturer-update",
+                    kwargs={"pk": 1})
         )
         self.assertEqual(response.status_code, 302)
 
     def test_manufacturer_delete(self):
         response = self.client.get(
-            reverse("taxi:manufacturer-delete", kwargs={"pk": 1})
+            reverse("taxi:manufacturer-delete",
+                    kwargs={"pk": 1})
         )
         self.assertEqual(response.status_code, 302)
 
@@ -80,7 +94,9 @@ class PrivateCarLoginTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        manufacturer = Manufacturer.objects.create(name="Mercedes", country="Germany")
+        manufacturer = (Manufacturer.objects.
+                        create(name="Mercedes",
+                               country="Germany"))
         Car.objects.create(model="Mercedes_G", manufacturer=manufacturer)
 
     def test_car_list(self):
@@ -88,7 +104,9 @@ class PrivateCarLoginTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_car_detail(self):
-        response = self.client.get(reverse("taxi:car-detail", kwargs={"pk": 1}))
+        response = (self.client.get
+                    (reverse("taxi:car-detail",
+                             kwargs={"pk": 1})))
         self.assertEqual(response.status_code, 200)
 
     def test_car_create(self):
@@ -96,11 +114,15 @@ class PrivateCarLoginTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_car_update(self):
-        response = self.client.get(reverse("taxi:car-update", kwargs={"pk": 1}))
+        response = (self.client.get
+                    (reverse("taxi:car-update",
+                             kwargs={"pk": 1})))
         self.assertEqual(response.status_code, 200)
 
     def test_car_delete(self):
-        response = self.client.post(reverse("taxi:car-delete", args=(1,)))
+        response = (self.client.post
+                    (reverse("taxi:car-delete",
+                             args=(1,))))
         self.assertEqual(response.status_code, 302)
 
 
@@ -114,7 +136,8 @@ class PrivateManufacturerLoginTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        manufacturer = Manufacturer.objects.create(name="Mercedes", country="Germany")
+        Manufacturer.objects.create(name="Mercedes",
+                                    country="Germany")
 
     def test_manufacturer_list(self):
         response = self.client.get(reverse("taxi:manufacturer-list"))
@@ -126,13 +149,15 @@ class PrivateManufacturerLoginTest(TestCase):
 
     def test_manufacturer_update(self):
         response = self.client.get(
-            reverse("taxi:manufacturer-update", kwargs={"pk": 1})
+            reverse("taxi:manufacturer-update",
+                    kwargs={"pk": 1})
         )
         self.assertEqual(response.status_code, 200)
 
     def test_manufacturer_delete(self):
         response = self.client.post(
-            reverse("taxi:manufacturer-delete", kwargs={"pk": 1})
+            reverse("taxi:manufacturer-delete",
+                    kwargs={"pk": 1})
         )
         self.assertEqual(response.status_code, 302)
 
@@ -155,7 +180,9 @@ class PrivateDriverLoginTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_driver_detail(self):
-        response = self.client.get(reverse("taxi:driver-detail", kwargs={"pk": 1}))
+        response = (self.client.get
+                    (reverse("taxi:driver-detail",
+                             kwargs={"pk": 1})))
         self.assertEqual(response.status_code, 200)
 
     def test_driver_create(self):
@@ -163,11 +190,14 @@ class PrivateDriverLoginTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_driver_update(self):
-        response = self.client.get(reverse("taxi:driver-update", kwargs={"pk": 1}))
+        response = (self.client.get
+                    (reverse("taxi:driver-update",
+                             kwargs={"pk": 1})))
         self.assertEqual(response.status_code, 200)
 
     def test_driver_delete(self):
         response = self.client.post(
-            reverse("taxi:driver-delete", kwargs={"pk": self.user.pk})
+            reverse("taxi:driver-delete",
+                    kwargs={"pk": self.user.pk})
         )
         self.assertEqual(response.status_code, 302)
